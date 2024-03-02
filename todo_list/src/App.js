@@ -25,6 +25,10 @@ const App = () => {
   };
 
   // Add the deleteToDo code here
+  const handleDelete = id => {
+    const updatedTodos = [...todos].filter(todo => todo.id !== id);
+    setTodos(updatedTodos);
+  };
 
   // Add the toggleComplete code here
 
@@ -39,8 +43,9 @@ const App = () => {
       </form>
 
       {todos.map(todo => (
-        <div key={todo.id} class="todo">
-          <div class="todo-text">{todo.text}</div>
+        <div key={todo.id} className="todo">
+          <div className="todo-text">{todo.text}</div>
+          <button onClick={() => handleDelete(todo.id)}>Delete</button>
         </div>
       ))}
     </div>
