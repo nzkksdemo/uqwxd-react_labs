@@ -31,7 +31,7 @@ const App = () => {
   // Add the submitEdits code here
 
   return (
-    <div className="App">
+    <div id="todo-list" className="App">
       <h1>Todo List</h1>
       <form>
         <input type="text" align="right" id="todoAdd" />
@@ -39,6 +39,12 @@ const App = () => {
           Add Todo
         </button>
       </form>
+
+      {todos.map(todo => (
+        <div key={todo.id} class="todo">
+          <div class="todo-text">{todo.text}</div>
+        </div>
+      ))}
     </div>
   );
 };
