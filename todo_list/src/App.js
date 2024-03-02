@@ -33,11 +33,9 @@ const App = () => {
   return (
     <div id="todo-list" className="App">
       <h1>Todo List</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input type="text" align="right" id="todoAdd" />
-        <button type="submit" onClick={handleSubmit}>
-          Add Todo
-        </button>
+        <button type="submit">Add Todo</button>
       </form>
 
       {todos.map(todo => (
