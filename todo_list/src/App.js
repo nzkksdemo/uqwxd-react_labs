@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 const App = () => {
   const [todos, setTodos] = useState([]);
+  const [todoIdForEdit, setTodoIdForEdit] = useState(null);
 
   // Add the handlesubmit code here
   const handleSubmit = e => {
@@ -44,9 +45,21 @@ const App = () => {
   };
 
   // Add the submitEdits code here
+  const handleEditSubmit = newTodo => {
+    const updatedTodos = [...todos].map(todo => {
+      if (todo.id === newTodo.id) {
+        todo.text = document.getElementById(newTodo.id).value;
+      }
+
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+    setTodoIdForEdit(null);
+  };
 
   return (
-    <div id="todo-list" className="App">
+    <div id="todo-list">
       <h1>Todo List</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" align="right" id="todoAdd" />
@@ -55,9 +68,21 @@ const App = () => {
 
       {todos.map(todo => (
         <div key={todo.id} className="todo">
-          <input id="completed" type="checkbox" checked={todo.completed} onChange={() => toggleComplete(todo.id)} />
-          <div className="todo-text">{todo.text}</div>
-          <button onClick={() => handleDelete(todo.id)}>Delete</button>
+          <div className="todo-text">
+            <input id="completed" type="checkbox" checked={todo.completed} onChange={() => toggleComplete(todo.id)} />
+
+            {todo.id === todoIdForEdit ? <input id={todo.id} type="text" defaultValue={todo.text} /> : <>{todo.text}</>}
+          </div>
+
+          <div className="todo-actions">
+            {todo.id === todoIdForEdit ? (
+              <button onClick={() => handleEditSubmit(todo)}>Save</button>
+            ) : (
+              <button onClick={() => setTodoIdForEdit(todo.id)}>Edit</button>
+            )}
+
+            <button onClick={() => handleDelete(todo.id)}>Delete</button>
+          </div>
         </div>
       ))}
     </div>
