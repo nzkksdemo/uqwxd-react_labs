@@ -59,7 +59,7 @@ const App = () => {
   };
 
   return (
-    <div id="todo-list">
+    <div className="todo-list">
       <h1>Todo List</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" align="right" id="todoAdd" />
@@ -69,7 +69,12 @@ const App = () => {
       {todos.map(todo => (
         <div key={todo.id} className="todo">
           <div className="todo-text">
-            <input id="completed" type="checkbox" checked={todo.completed} onChange={() => toggleComplete(todo.id)} />
+            <input
+              className="completed"
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => toggleComplete(todo.id)}
+            />
 
             {todo.id === todoIdForEdit ? <input id={todo.id} type="text" defaultValue={todo.text} /> : <>{todo.text}</>}
           </div>
